@@ -40,10 +40,10 @@ function generateAnswer(i, qOrder, questionArr) {
     aOrder = generateRandomAnswers(maxAnswers)
     console.log("Index of all random answers from questionsArr " + aOrder, "\nIndex of question from random question: " + qOrder[i], "\nIndex of correct answer from aOrder array: " + aOrder.indexOf(qOrder[i]))
     for (var i = 0; i < aOrder.length; i++) {
-        var h3AEl = document.getElementById("answer" + i)
-        h3AEl.textContent = i + 1 + ": " + questionArr[aOrder[i]].a
-
+        var btnAEl = document.getElementById("answer" + i)
+        btnAEl.textContent = i + 1 + ": " + questionArr[aOrder[i]].a
     }
+    return aOrder
 }
 function generateRandomAnswers(maxAnswers) {
     var aOrder = []
@@ -91,9 +91,67 @@ var questionArr
 var maxAnswers = 4
 
 var startBtn = document.getElementById('start');
-startBtn.onclick = loadVariables;
+aOrder = loadVariables()
+startBtn.onclick = aOrder;
 var startBtn2 = document.getElementById('start2');
 startBtn2.onclick = nextQuestion;
+
+var answerBtn0 = document.querySelector('#answer0')
+var answerBtn1 = document.querySelector('#answer1')
+var answerBtn2 = document.querySelector('#answer2')
+var answerBtn3 = document.querySelector('#answer3')
+//var btnClick = document.querySelector('#answer' + j)
+var score = 0;
+answerBtn0.addEventListener('click', function()
+{
+    console.log(qOrder,aOrder,aOrder.indexOf(qOrder[i-1]))
+    if(aOrder.indexOf(qOrder[i-1])==0)
+    score++
+    
+    if(i == questionArr.length)
+    {
+        return console.log("end of quiz")
+    }
+    nextQuestion()
+})
+answerBtn1.addEventListener('click', function()
+{
+    console.log(qOrder,aOrder,aOrder.indexOf(qOrder[i-1]))
+    if(aOrder.indexOf(qOrder[i-1])==1)
+    score++
+    
+    if(i == questionArr.length)
+    {
+        return console.log("end of quiz")
+    }
+    nextQuestion()
+})
+
+answerBtn2.addEventListener('click', function()
+{
+    console.log(qOrder,aOrder,aOrder.indexOf(qOrder[i-1]))
+    if(aOrder.indexOf(qOrder[i-1])==2)
+    score++
+    
+    if(i == questionArr.length)
+    {
+        return console.log("end of quiz")
+    }
+    nextQuestion()
+})
+
+answerBtn3.addEventListener('click', function()
+{
+    console.log(qOrder,aOrder,aOrder.indexOf(qOrder[i-1]))
+    if(aOrder.indexOf(qOrder[i-1])==3)
+    score++
+    
+    if(i == questionArr.length)
+    {
+        return console.log("end of quiz")
+    }
+    nextQuestion()
+})
 
 function loadVariables() {
     countdown()
@@ -104,5 +162,6 @@ function loadVariables() {
 function nextQuestion() {
     console.log(questions())
 
-    generateAnswer(i, generateQuestion(i++, qOrder, questions()), questions())
+    aOrder=generateAnswer(i, generateQuestion(i++, qOrder, questions()), questions())
+    console.log(aOrder,score)
 }
