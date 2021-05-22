@@ -4,8 +4,22 @@
   box-sizing: border-box;
 }
 .container {
-  margin: auto;
-  width: 100%;
+  margin: 10px 30%;
   height: 100px;
   text-align: center;
+  padding: 10px 25px
+}
+.question-container{
+  margin:0% 30%;
+  height: 100%;
+  word-wrap: normal;
+  padding: 10px 25px
+}
+.question-container h2{
+  margin:10px;
+  text-align: left;
+}
+.question-container h3{
+  margin:5px 10px;
+  text-align: left;
 }

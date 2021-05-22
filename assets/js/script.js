@@ -1,6 +1,7 @@
 const min = 0
 const max = 9
 const body = document.body
+const h2QEl = document.getElementById("question")
 
 function questions(){
     var questionArr = [
@@ -32,11 +33,9 @@ function generateRandomQuestion() {
 }
 function generateQuestion(i,randomOrder,questionArr)
 {
-    var questionEl = document.createElement("h2")
-    
-    questionEl.textContent = questionArr[randomOrder[i]].q
-
-    body.appendChild(questionEl)
+    //var questionEl = document.createElement("h2")
+    h2QEl.textContent = questionArr[randomOrder[i]].q
+    //body.appendChild(questionEl)
     return randomOrder
 }
 function generateAnswer(i,qOrder, questionArr){
@@ -45,11 +44,9 @@ function generateAnswer(i,qOrder, questionArr){
     aOrder = generateRandomAnswers(maxAnswers)
      console.log("Index of all random answers from questionsArr " + aOrder, "\nIndex of question from random question: " + qOrder[i], "\nIndex of correct answer from aOrder array: " + aOrder.indexOf(qOrder[i]))
     for(var i = 0; i < aOrder.length; i++){
-    var answerEl = document.createElement("h3")    
-
-    answerEl.textContent = questionArr[aOrder[i]].a
-
-    body.appendChild(answerEl)
+    var h3AEl = document.getElementById("answer"+i) 
+    h3AEl.textContent = i+1 + ": " + questionArr[aOrder[i]].a
+    //body.appendChild(answerEl)
     }
 }
 function generateRandomAnswers(maxAnswers) {
@@ -83,7 +80,7 @@ var timerEl = document.getElementById('countdown');
 
 // Timer that counts down from 5
 function countdown() {
-  var timeLeft = 100;
+  var timeLeft = 99;
   var timeInterval = setInterval(function() {
  
     if (timeLeft > 1) {
