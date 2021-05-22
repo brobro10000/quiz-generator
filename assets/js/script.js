@@ -91,15 +91,26 @@ var questionArr
 var maxAnswers = 4
 
 var startBtn = document.getElementById('start');
-aOrder = loadVariables()
-startBtn.onclick = aOrder;
-var startBtn2 = document.getElementById('start2');
-startBtn2.onclick = nextQuestion;
-
+startBtn.onclick = startQuiz;
 var answerBtn0 = document.querySelector('#answer0')
 var answerBtn1 = document.querySelector('#answer1')
 var answerBtn2 = document.querySelector('#answer2')
 var answerBtn3 = document.querySelector('#answer3')
+removeButtons();
+function removeButtons(){
+document.getElementById("question").style.display = "none"
+document.getElementById("answer0").style.display = "none"
+document.getElementById("answer1").style.display = "none"
+document.getElementById("answer2").style.display = "none"
+document.getElementById("answer3").style.display = "none"
+}
+function displayButtons(){
+    document.getElementById("question").style.display = "block"
+    document.getElementById("answer0").style.display = "block"
+    document.getElementById("answer1").style.display = "block"
+    document.getElementById("answer2").style.display = "block"
+    document.getElementById("answer3").style.display = "block"
+}
 //var btnClick = document.querySelector('#answer' + j)
 var score = 0;
 answerBtn0.addEventListener('click', function()
@@ -157,6 +168,7 @@ function loadVariables() {
     countdown()
     qOrder = generateRandomQuestion()
     questionArr = questions()
+    displayButtons()
 }
 
 function nextQuestion() {
@@ -164,4 +176,9 @@ function nextQuestion() {
 
     aOrder=generateAnswer(i, generateQuestion(i++, qOrder, questions()), questions())
     console.log(aOrder,score)
+}
+function startQuiz() {
+    aOrder = loadVariables()
+   nextQuestion()
+   return aOrder
 }
