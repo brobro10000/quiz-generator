@@ -1,5 +1,7 @@
 const min = 0
 const max = 9
+const body = document.body
+
 function questions(){
     var questionArr = [
 /*0*/        {q:"How do you iterate through an array?", a:"for loops"},
@@ -30,7 +32,6 @@ function generateRandomQuestion() {
 }
 function generateQuestion(i,randomOrder,questionArr)
 {
-    var body = document.body
     var questionEl = document.createElement("h2")
     
     questionEl.textContent = questionArr[randomOrder[i]].q
@@ -39,15 +40,15 @@ function generateQuestion(i,randomOrder,questionArr)
     return randomOrder
 }
 function generateAnswer(i,qOrder, questionArr){
-    var body = document.body
     var aOrder = []
     var maxAnswers = 4
-    var number
     aOrder = generateRandomAnswers(maxAnswers)
      console.log("Index of all random answers from questionsArr " + aOrder, "\nIndex of question from random question: " + qOrder[i], "\nIndex of correct answer from aOrder array: " + aOrder.indexOf(qOrder[i]))
     for(var i = 0; i < aOrder.length; i++){
     var answerEl = document.createElement("h3")    
+
     answerEl.textContent = questionArr[aOrder[i]].a
+
     body.appendChild(answerEl)
     }
 }
@@ -64,13 +65,40 @@ function generateRandomAnswers(maxAnswers) {
     return generateRandomAnswers(maxAnswers)
     return aOrder
 }
+
 //Random number generator inclusive
 function getRandom(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
+countdown()
 console.log(questions())
 questionArr = questions()
 qOrder = generateRandomQuestion()
 for(var i=0;i<questionArr.length;i++)
 generateAnswer(i,generateQuestion(i,qOrder,questions()),questions())
+console.log(qOrder)
+
+var timerEl = document.getElementById('countdown');
+
+// Timer that counts down from 5
+function countdown() {
+  var timeLeft = 100;
+  var timeInterval = setInterval(function() {
+ 
+    if (timeLeft > 1) {
+      timerEl.textContent = "Timer: " + timeLeft + ' seconds remaining';
+      timeLeft--;
+    } else if (timeLeft === 1) {
+      timerEl.textContent = "Timer: " + timeLeft + ' second remaining';
+      timeLeft--;
+    } else {
+      timerEl.textContent = '';
+      clearInterval(timeInterval);
+    }
+  }, 1000);
+}
+
+
+
+
