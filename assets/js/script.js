@@ -40,7 +40,6 @@ function generateQuestion(i,randomOrder,questionArr)
 }
 function generateAnswer(i,qOrder, questionArr){
     var aOrder = []
-    var maxAnswers = 4
     aOrder = generateRandomAnswers(maxAnswers)
      console.log("Index of all random answers from questionsArr " + aOrder, "\nIndex of question from random question: " + qOrder[i], "\nIndex of correct answer from aOrder array: " + aOrder.indexOf(qOrder[i]))
     for(var i = 0; i < aOrder.length; i++){
@@ -58,7 +57,7 @@ function generateRandomAnswers(maxAnswers) {
         if(aOrder.indexOf(number) == -1)
         aOrder.push(number)
     }
-    if(aOrder.indexOf(qOrder[i])==-1)
+    if(aOrder.indexOf(qOrder[i-1])==-1)
     return generateRandomAnswers(maxAnswers)
     return aOrder
 }
@@ -68,13 +67,7 @@ function getRandom(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-countdown()
-console.log(questions())
-questionArr = questions()
-qOrder = generateRandomQuestion()
-for(var i=0;i<questionArr.length;i++)
-generateAnswer(i,generateQuestion(i,qOrder,questions()),questions())
-console.log(qOrder)
+
 
 var timerEl = document.getElementById('countdown');
 
@@ -96,6 +89,22 @@ function countdown() {
   }, 1000);
 }
 
+var i = 0;
+var qOrder;
+var questionArr
+var maxAnswers = 4
 
-
-
+var startBtn = document.getElementById('start');
+startBtn.onclick = loadVariables;
+var startBtn2 = document.getElementById('start2');
+startBtn2.onclick = nextQuestion;
+function loadVariables() {
+countdown()
+qOrder = generateRandomQuestion()
+questionArr = questions()
+}
+function nextQuestion() {
+console.log(questions())
+//for(i=0;i<questionArr.length;i++)
+generateAnswer(i,generateQuestion(i++,qOrder,questions()),questions())
+}
