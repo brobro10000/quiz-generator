@@ -1,28 +1,23 @@
+const min = 0
+const max = 9
 function questions(){
     var questionArr = [
-        {q:"How do you iterate through an array?", a:"for loops"},
-        {q:"Conditional Statement considering 'either or", a:"if/else"},
-        {q:"Continues running till all parameters are met, may complete an action before running", a:"do..while" },
-        {q:"Ends looping, regardless of conditions met", a:"break" },
-        {q:"Keeps moving through iterations, ignoring code below it", a:"continue"},
-        {q:"Emmet code to quickly enter initial index code", a:"html:5"},
-        {q:"Append array in javascript", a:"push"},
-        {q:"Removes last element of an array", a:"pop"},
-        {q:"Position of element in an array", a:"index"},
-        {q:"Terminology used to change datatypes", a:"parse"}
+/*0*/        {q:"How do you iterate through an array?", a:"for loops"},
+/*1*/        {q:"Conditional Statement considering 'either or'", a:"if/else"},
+/*2*/        {q:"Continues running till all parameters are met, may complete an action before running", a:"do..while" },
+/*3*/        {q:"Ends looping, regardless of conditions met", a:"break" },
+/*4*/        {q:"Keeps moving through iterations, ignoring code below it", a:"continue"},
+/*5*/        {q:"Emmet code to quickly enter initial index code", a:"html:5"},
+/*6*/        {q:"Append array in javascript", a:"push"},
+/*7*/        {q:"Removes last element of an array", a:"pop"},
+/*8*/        {q:"Position of element in an array", a:"index"},
+/*9*/        {q:"Terminology used to change datatypes", a:"parse"}
     ]
-    // if(attr == 'q')
-    // return questionArr[i].q
-    // else if(attr =='a')
-    // return questionArr[i].a
-
     return questionArr
 }
-function questionOrder() {
+function generateRandomQuestion() {
     var questionArr = questions()
     var qOrder = []
-    var min = 0
-    var max = 9
     var number 
     while(qOrder.length < questionArr.length)
     {
@@ -30,19 +25,44 @@ function questionOrder() {
         if(qOrder.indexOf(number) == -1)
         qOrder.push(number)
     }
-    console.log(qOrder)
+    console.log("Order of questions in the array qOrder: " + qOrder)
     return qOrder
 }
-function generateQuestion(i)
+function generateQuestion(i,randomOrder,questionArr)
 {
-    var questionArr = questions()
-    var randomOrder = questionOrder()
     var body = document.body
     var questionEl = document.createElement("h2")
     
     questionEl.textContent = questionArr[randomOrder[i]].q
 
     body.appendChild(questionEl)
+    return randomOrder
+}
+function generateAnswer(i,qOrder, questionArr){
+    var body = document.body
+    var aOrder = []
+    var maxAnswers = 4
+    var number
+    aOrder = generateRandomAnswers(maxAnswers)
+     console.log("Index of all random answers from questionsArr " + aOrder, "\nIndex of question from random question: " + qOrder[i], "\nIndex of correct answer from aOrder array: " + aOrder.indexOf(qOrder[i]))
+    for(var i = 0; i < aOrder.length; i++){
+    var answerEl = document.createElement("h3")    
+    answerEl.textContent = questionArr[aOrder[i]].a
+    body.appendChild(answerEl)
+    }
+}
+function generateRandomAnswers(maxAnswers) {
+    var aOrder = []
+    var number
+    while(aOrder.length < maxAnswers)
+    {
+        number = getRandom(min,max)
+        if(aOrder.indexOf(number) == -1)
+        aOrder.push(number)
+    }
+    if(aOrder.indexOf(qOrder[i])==-1)
+    return generateRandomAnswers(maxAnswers)
+    return aOrder
 }
 //Random number generator inclusive
 function getRandom(min, max) {
@@ -50,7 +70,7 @@ function getRandom(min, max) {
   }
 
 console.log(questions())
-questionOrder()
 questionArr = questions()
-for(var i = 0; i< questionArr.length; i++)
-generateQuestion(i)
+qOrder = generateRandomQuestion()
+for(var i=0;i<questionArr.length;i++)
+generateAnswer(i,generateQuestion(i,qOrder,questions()),questions())
