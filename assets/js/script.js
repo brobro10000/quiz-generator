@@ -97,68 +97,60 @@ var answerBtn1 = document.querySelector('#answer1')
 var answerBtn2 = document.querySelector('#answer2')
 var answerBtn3 = document.querySelector('#answer3')
 removeButtons();
-function removeButtons(){
-document.getElementById("question").style.display = "none"
-document.getElementById("answer0").style.display = "none"
-document.getElementById("answer1").style.display = "none"
-document.getElementById("answer2").style.display = "none"
-document.getElementById("answer3").style.display = "none"
+function removeButtons() {
+    document.getElementById("question").style.display = "none"
+    document.getElementById("answer0").style.display = "none"
+    document.getElementById("answer1").style.display = "none"
+    document.getElementById("answer2").style.display = "none"
+    document.getElementById("answer3").style.display = "none"
 }
-function displayButtons(){
+function displayButtons() {
     document.getElementById("question").style.display = "block"
     document.getElementById("answer0").style.display = "block"
     document.getElementById("answer1").style.display = "block"
     document.getElementById("answer2").style.display = "block"
     document.getElementById("answer3").style.display = "block"
 }
-//var btnClick = document.querySelector('#answer' + j)
+
 var score = 0;
-answerBtn0.addEventListener('click', function()
-{
-    console.log(qOrder,aOrder,aOrder.indexOf(qOrder[i-1]))
-    if(aOrder.indexOf(qOrder[i-1])==0)
-    score++
-    
-    if(i == questionArr.length)
-    {
+answerBtn0.addEventListener('click', function () {
+    console.log(qOrder, aOrder, aOrder.indexOf(qOrder[i - 1]))
+    if (aOrder.indexOf(qOrder[i - 1]) == 0)
+        score++
+
+    if (i == questionArr.length) {
         return console.log("end of quiz")
     }
     nextQuestion()
 })
-answerBtn1.addEventListener('click', function()
-{
-    console.log(qOrder,aOrder,aOrder.indexOf(qOrder[i-1]))
-    if(aOrder.indexOf(qOrder[i-1])==1)
-    score++
-    
-    if(i == questionArr.length)
-    {
+answerBtn1.addEventListener('click', function () {
+    console.log(qOrder, aOrder, aOrder.indexOf(qOrder[i - 1]))
+    if (aOrder.indexOf(qOrder[i - 1]) == 1)
+        score++
+
+    if (i == questionArr.length) {
         return console.log("end of quiz")
     }
     nextQuestion()
 })
 
-answerBtn2.addEventListener('click', function()
-{
-    console.log(qOrder,aOrder,aOrder.indexOf(qOrder[i-1]))
-    if(aOrder.indexOf(qOrder[i-1])==2)
-    score++
-    
-    if(i == questionArr.length)
-    {
+answerBtn2.addEventListener('click', function () {
+    console.log(qOrder, aOrder, aOrder.indexOf(qOrder[i - 1]))
+    if (aOrder.indexOf(qOrder[i - 1]) == 2)
+        score++
+
+    if (i == questionArr.length) {
         return console.log("end of quiz")
     }
     nextQuestion()
 })
 
-answerBtn3.addEventListener('click', function()
-{
-    console.log(qOrder,aOrder,aOrder.indexOf(qOrder[i-1]))
-    if(aOrder.indexOf(qOrder[i-1])==3)
-    score++
-    
-    if(i == questionArr.length)
-    {
+answerBtn3.addEventListener('click', function () {
+    console.log(qOrder, aOrder, aOrder.indexOf(qOrder[i - 1]))
+    if (aOrder.indexOf(qOrder[i - 1]) == 3)
+        score++
+
+    if (i == questionArr.length) {
         return console.log("end of quiz")
     }
     nextQuestion()
@@ -174,11 +166,11 @@ function loadVariables() {
 function nextQuestion() {
     console.log(questions())
 
-    aOrder=generateAnswer(i, generateQuestion(i++, qOrder, questions()), questions())
-    console.log(aOrder,score)
+    aOrder = generateAnswer(i, generateQuestion(i++, qOrder, questions()), questions())
+    console.log(aOrder, score)
 }
 function startQuiz() {
     aOrder = loadVariables()
-   nextQuestion()
-   return aOrder
+    nextQuestion()
+    return aOrder
 }
