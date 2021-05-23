@@ -24,7 +24,7 @@ var maxAnswers = 4
 var timeLeft = 99;
 var timeDecrement = 9;
 var formEl = document.querySelector("#highscore-form");
-var highScoresArr = [{name:"AJ",score:0}]
+var highScoresArr = [{ name: "AJ", score: 0 }]
 highScoresArr = loadScore(highScoresArr)
 
 function questions() {
@@ -65,7 +65,7 @@ function generateAnswer(i, qOrder, questionArr) {
     aOrder = generateRandomAnswers(maxAnswers)
     console.log("Index of all random answers from questionsArr " + aOrder, "\nIndex of question from random question: " + qOrder[i], "\nIndex of correct answer from aOrder array: " + aOrder.indexOf(qOrder[i]))
     for (var i = 0; i < aOrder.length; i++) {
-        var btnAEl = document.getElementById("answer" + i)       
+        var btnAEl = document.getElementById("answer" + i)
         btnAEl.textContent = i + 1 + ": " + questionArr[aOrder[i]].a
     }
     return aOrder
@@ -132,51 +132,51 @@ function removeFinalScore() {
     document.getElementById("finalScore-prompt").style.display = "none"
     document.getElementById("finalScore").style.display = "none"
     document.getElementById("initials").style.display = "none"
-    document.getElementById("highScore-box").style.display="none"
-    document.getElementById("save-score").style.display="none"
+    document.getElementById("highScore-box").style.display = "none"
+    document.getElementById("save-score").style.display = "none"
 }
 function displayFinalScore() {
-//    document.getElementById("high-scores-h1").style.display = "block"
+    //    document.getElementById("high-scores-h1").style.display = "block"
     document.getElementById("finalScore-prompt").style.display = "block"
     document.getElementById("finalScore").style.display = "block"
     document.getElementById("initials").style.display = "block"
-    document.getElementById("highScore-box").style.display="block"
-    document.getElementById("save-score").style.display="block"
+    document.getElementById("highScore-box").style.display = "block"
+    document.getElementById("save-score").style.display = "block"
 }
-function removeHighScore(){
+function removeHighScore() {
     document.getElementById("high-scores-h1").style.display = "none"
     document.getElementById("savedScore").style.display = "none"
 }
-function displayHighScore(){
+function displayHighScore() {
     document.getElementById("high-scores-h1").style.display = "block"
-   document.getElementById("savedScore").style.display = "block"
+    document.getElementById("savedScore").style.display = "block"
 }
-function removeViewHighScore(){
-    document.getElementById('high-scoresbtn').style.display="none"
+function removeViewHighScore() {
+    document.getElementById('high-scoresbtn').style.display = "none"
 }
-function displayViewHighScore(){
-    document.getElementById('high-scoresbtn').style.display="block"
+function displayViewHighScore() {
+    document.getElementById('high-scoresbtn').style.display = "block"
 }
-function removeBack(){
-    document.getElementById('back').style.display="none"
+function removeBack() {
+    document.getElementById('back').style.display = "none"
 }
-function displayBack(){
-    document.getElementById('back').style.display="block"
+function displayBack() {
+    document.getElementById('back').style.display = "block"
 }
-function displayDynamicList(){
-    document.getElementById('dynamicList').style.display="block"
+function displayDynamicList() {
+    document.getElementById('dynamicList').style.display = "block"
 }
-function removeDynamicList(){
-    document.getElementById('dynamicList').style.display="none"
+function removeDynamicList() {
+    document.getElementById('dynamicList').style.display = "none"
 }
 answerBtn0.addEventListener('click', function () {
     console.log(qOrder, aOrder, aOrder.indexOf(qOrder[i - 1]))
-    if (aOrder.indexOf(qOrder[i - 1]) == 0){
+    if (aOrder.indexOf(qOrder[i - 1]) == 0) {
         score++
     }
-        else {
-            timeLeft -= timeDecrement
-        }
+    else {
+        timeLeft -= timeDecrement
+    }
     if (i == questionArr.length) {
         removeQuizButtons()
         return displayScore(score)
@@ -185,7 +185,7 @@ answerBtn0.addEventListener('click', function () {
 })
 answerBtn1.addEventListener('click', function () {
     console.log(qOrder, aOrder, aOrder.indexOf(qOrder[i - 1]))
-    if (aOrder.indexOf(qOrder[i - 1]) == 1){
+    if (aOrder.indexOf(qOrder[i - 1]) == 1) {
         score++
     }
     else {
@@ -200,11 +200,11 @@ answerBtn1.addEventListener('click', function () {
 
 answerBtn2.addEventListener('click', function () {
     console.log(qOrder, aOrder, aOrder.indexOf(qOrder[i - 1]))
-    if (aOrder.indexOf(qOrder[i - 1]) == 2){
+    if (aOrder.indexOf(qOrder[i - 1]) == 2) {
         score++
-    }  else {
-            timeLeft -= timeDecrement
-        }
+    } else {
+        timeLeft -= timeDecrement
+    }
     if (i == questionArr.length) {
         removeQuizButtons()
         return displayScore(score)
@@ -214,12 +214,12 @@ answerBtn2.addEventListener('click', function () {
 
 answerBtn3.addEventListener('click', function () {
     console.log(qOrder, aOrder, aOrder.indexOf(qOrder[i - 1]))
-    if (aOrder.indexOf(qOrder[i - 1]) == 3){
+    if (aOrder.indexOf(qOrder[i - 1]) == 3) {
         score++
     }
-        else {
-            timeLeft -= timeDecrement
-        }
+    else {
+        timeLeft -= timeDecrement
+    }
     if (i == questionArr.length) {
         removeQuizButtons()
         return displayScore(score)
@@ -227,15 +227,12 @@ answerBtn3.addEventListener('click', function () {
     nextQuestion()
 })
 
-function saveScore(highScoresArr)
-{
+function saveScore(highScoresArr) {
     localStorage.setItem("HighScore", JSON.stringify(highScoresArr))
 }
-function loadScore(highScoresArr)
-{
+function loadScore(highScoresArr) {
     var returnedHighScoresArr = localStorage.getItem("HighScore")
-    if(!returnedHighScoresArr)
-    {
+    if (!returnedHighScoresArr) {
         return false
     }
     returnedHighScoresArr = JSON.parse(returnedHighScoresArr)
@@ -243,47 +240,47 @@ function loadScore(highScoresArr)
     return highScoresArr
 }
 function taskFormHandler(event) {
-  event.preventDefault();
-  var highScoreNameInput = document.querySelector("input[name='initials']").value;
-  
-console.log(highScoresArr, highScoreNameInput)
-  // check if inputs are empty (validate)
-  if (highScoreNameInput === "") {
-    alert("No initials entered");
-    return false;
-  }{
-    removeFinalScore()
-    displayDynamicList()
-    displayHighScore()
-    displayBack()
-  }
-  formEl.reset();
+    event.preventDefault();
+    var highScoreNameInput = document.querySelector("input[name='initials']").value;
+
+    console.log(highScoresArr, highScoreNameInput)
+    // check if inputs are empty (validate)
+    if (highScoreNameInput === "") {
+        alert("No initials entered");
+        return false;
+    } {
+        removeFinalScore()
+        displayDynamicList()
+        displayHighScore()
+        displayBack()
+    }
+    formEl.reset();
     highScoreArr = loadScore(highScoresArr)
     saveScore(highScoresArr)
 
-  document.querySelector("input[name='initials']").value = "";
-    highScoresArr.push({name:highScoreNameInput,score:score})
+    document.querySelector("input[name='initials']").value = "";
+    highScoresArr.push({ name: highScoreNameInput, score: score })
     console.log(highScoresArr)
 
-  saveScore(highScoresArr)
-  createHighScoreEl(highScoresArr)
+    saveScore(highScoresArr)
+    createHighScoreEl(highScoresArr)
 };
-var createHighScoreEl = function(highScoresArr) {
-  // create list item
-  var listItemEl = document.getElementById('scores-list');
+var createHighScoreEl = function (highScoresArr) {
+    // create list item
+    var listItemEl = document.getElementById('scores-list');
 
-  // create div to hold task info and add to list item
-  for(var i = 0; i<highScoresArr.length;i++){
-  var scoreInfoEl = document.createElement("p");
-  var nameInfoEl = document.createElement("p");
-  scoreInfoEl.className = "highscore-score";
-  nameInfoEl.className = "highscore-name";
-  nameInfoEl.innerHTML = "Name: " + highScoresArr[i].name + " "
-  scoreInfoEl.innerHTML = "Score: " + highScoresArr[i].score + " "
-  listItemEl.appendChild(nameInfoEl);
-  listItemEl.appendChild(scoreInfoEl);
-  }
-  saveScore(highScoresArr)
+    // create div to hold task info and add to list item
+    for (var i = 0; i < highScoresArr.length; i++) {
+        var scoreInfoEl = document.createElement("p");
+        var nameInfoEl = document.createElement("p");
+        scoreInfoEl.className = "highscore-score";
+        nameInfoEl.className = "highscore-name";
+        nameInfoEl.innerHTML = "Name: " + highScoresArr[i].name + " "
+        scoreInfoEl.innerHTML = "Score: " + highScoresArr[i].score + " "
+        listItemEl.appendChild(nameInfoEl);
+        listItemEl.appendChild(scoreInfoEl);
+    }
+    saveScore(highScoresArr)
 };
 function nextQuestion() {
     console.log(questions())
@@ -316,21 +313,21 @@ function viewHighScores() {
     createHighScoreEl(highScoresArr)
 }
 function displayScore() {
-    finalScore.textContent = "Your final score is "+ score +"."
+    finalScore.textContent = "Your final score is " + score + "."
     displayFinalScore()
     console.log(score)
 }
 function restart() {
     i = 0
     loadScore(highScoresArr)
-removeBack()
-removeHighScore()
-removeFinalScore()
-removeQuizButtons()
-removeHighScore()
-removeDynamicList()
-displayViewHighScore()
-displayInitialPrompt()
+    removeBack()
+    removeHighScore()
+    removeFinalScore()
+    removeQuizButtons()
+    removeHighScore()
+    removeDynamicList()
+    displayViewHighScore()
+    displayInitialPrompt()
 }
 
 loadScore(highScoresArr)
@@ -339,6 +336,6 @@ removeHighScore()
 removeFinalScore()
 removeQuizButtons()
 initialStartBtn.onclick = startQuiz;
-viewHighScoresBtn.onclick =  viewHighScores;
+viewHighScoresBtn.onclick = viewHighScores;
 backbtn.onclick = restart;
 formEl.addEventListener("submit", taskFormHandler);
