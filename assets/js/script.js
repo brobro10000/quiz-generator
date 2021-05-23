@@ -22,7 +22,6 @@ var maxAnswers = 4
 var timeLeft = 99;
 var timeDecrement = 9;
 var highScoresArr = [{name:"AJ",score:0}]
-var mySound = new Audio("Wrong Buzzer Sound FX.mp3")
 function questions() {
     var questionArr = [
 /*0*/        { q: "How do you iterate through an array?", a: "for loops" },
@@ -153,7 +152,6 @@ answerBtn0.addEventListener('click', function () {
     console.log(qOrder, aOrder, aOrder.indexOf(qOrder[i - 1]))
     if (aOrder.indexOf(qOrder[i - 1]) == 0){
         score++
-        mySound.play();
     }
         else {
             timeLeft -= timeDecrement
@@ -168,7 +166,6 @@ answerBtn1.addEventListener('click', function () {
     console.log(qOrder, aOrder, aOrder.indexOf(qOrder[i - 1]))
     if (aOrder.indexOf(qOrder[i - 1]) == 1){
         score++
-        mySound.play();
     }
     else {
         timeLeft -= timeDecrement
@@ -184,7 +181,6 @@ answerBtn2.addEventListener('click', function () {
     console.log(qOrder, aOrder, aOrder.indexOf(qOrder[i - 1]))
     if (aOrder.indexOf(qOrder[i - 1]) == 2){
         score++
-        mySound.play();
     }  else {
             timeLeft -= timeDecrement
         }
@@ -199,7 +195,6 @@ answerBtn3.addEventListener('click', function () {
     console.log(qOrder, aOrder, aOrder.indexOf(qOrder[i - 1]))
     if (aOrder.indexOf(qOrder[i - 1]) == 3){
         score++
-        mySound.play();
     }
         else {
             timeLeft -= timeDecrement
