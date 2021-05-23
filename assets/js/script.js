@@ -1,3 +1,4 @@
+//all global variables
 const min = 0
 const max = 9
 const h2QEl = document.getElementById("question")
@@ -29,6 +30,7 @@ highScoresArr = loadScore(highScoresArr)
 var count = 0
 var qPoint = 0;
 
+//array of objects of our questions
 function questions() {
     var questionArr = [
 /*0*/        { q: "How do you iterate through an array?", a: "for loops" },
@@ -45,6 +47,7 @@ function questions() {
     return questionArr
 }
 
+//generates an array of random question indices
 function generateRandomQuestion() {
     var questionArr = questions()
     var qOrder = []
@@ -57,11 +60,13 @@ function generateRandomQuestion() {
     console.log("Order of questions in the array qOrder: " + qOrder)
     return qOrder
 }
+//uses random question indices to call the function in that order
 function generateQuestion(i, randomOrder, questionArr) {
     h2QEl.textContent = questionArr[randomOrder[i]].q
 
     return randomOrder
 }
+//generates a random answer and answer order, guarenteeing the correct answer is in the order
 function generateAnswer(i, qOrder, questionArr) {
     var aOrder = []
     aOrder = generateRandomAnswers(maxAnswers)
@@ -72,6 +77,7 @@ function generateAnswer(i, qOrder, questionArr) {
     }
     return aOrder
 }
+//generates random answer array for each question from questions[i].a
 function generateRandomAnswers(maxAnswers) {
     var aOrder = []
     var number
@@ -88,6 +94,7 @@ function generateRandomAnswers(maxAnswers) {
 function getRandom(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+//countdown the timer from 100 seconds, if timer expires before quiz, go display score
 function countdown() {
     var timeInterval = setInterval(function () {
         if (timeLeft > 1) {
@@ -98,10 +105,13 @@ function countdown() {
             timeLeft--;
         } else {
             timerEl.textContent = '';
+            removeQuizButtons()
             clearInterval(timeInterval);
+            return displayScore(score)
         }
     }, 1000);
 }
+//timer between each answer click. Displays green for correct and coral for incorrect. disables mouse events between clicks, 'pauses' time
 function questionTimer() {
     var timeInterval2 = setInterval(function () {
         count++
@@ -110,7 +120,7 @@ function questionTimer() {
         document.getElementById("answer1").style.pointerEvents = "none"
         document.getElementById("answer2").style.pointerEvents = "none"
         document.getElementById("answer3").style.pointerEvents = "none"
-        if (count == 3) {
+        if (count == 1) {
             qPoint++
             if (qPoint > 9) {
                 resetBackgroundColors()
@@ -133,12 +143,15 @@ function questionTimer() {
         }
     }, 1000)
 }
+//sets background to light blue after correct or incorrect
 function resetBackgroundColors() {
     document.getElementById("answer0").style.background = "lightblue"
     document.getElementById("answer1").style.background = "lightblue"
     document.getElementById("answer2").style.background = "lightblue"
     document.getElementById("answer3").style.background = "lightblue"
 }
+
+//blocks of code that remove elements from HTML between page phases with remove/display elements Lines 155-223
 function removeQuizButtons() {
     document.getElementById("quiz-h1").style.display = "none"
     document.getElementById("countdown").style.display = "none"
@@ -208,7 +221,7 @@ function displayDynamicList() {
 function removeDynamicList() {
     document.getElementById('dynamicList').style.display = "none"
 }
-
+//Event listeners for buttons, runs timer on click and increments score, checks correct from index of the qorders index Lines 225-301
 answerBtn0.addEventListener('click', function () {
     console.log(qOrder, aOrder, aOrder.indexOf(qOrder[i - 1]))
     if (aOrder.indexOf(qOrder[i - 1]) == 0) {
@@ -286,10 +299,11 @@ answerBtn3.addEventListener('click', function () {
     }
 
 })
-
+//Saves score to local
 function saveScore(highScoresArr) {
     localStorage.setItem("HighScore", JSON.stringify(highScoresArr))
 }
+//loads score from local
 function loadScore(highScoresArr) {
     var returnedHighScoresArr = localStorage.getItem("HighScore")
     if (!returnedHighScoresArr) {
@@ -299,7 +313,8 @@ function loadScore(highScoresArr) {
     highScoresArr = returnedHighScoresArr
     return highScoresArr
 }
-function taskFormHandler(event) {
+//handles submit button input from prompt, passes highScoresArr to createHighScoreEl
+function highScoreFormHandler(event) {
     event.preventDefault();
     var highScoreNameInput = document.querySelector("input[name='initials']").value;
 
@@ -325,36 +340,42 @@ function taskFormHandler(event) {
     saveScore(highScoresArr)
     createHighScoreEl(highScoresArr)
 };
+//Creates High score list
 var createHighScoreEl = function (highScoresArr) {
-    // create list item
-    var listItemEl = document.getElementById('scores-list');
 
-    // create div to hold task info and add to list item
+    var listItemEl = document.getElementById('scores-list');
+   
     for (var i = 0; i < highScoresArr.length; i++) {
-        var scoreInfoEl = document.createElement("p");
-        var nameInfoEl = document.createElement("p");
+        var scoreInfoEl = document.createElement("h3");
+        var nameInfoEl = document.createElement("h3");
         scoreInfoEl.className = "highscore-score";
         nameInfoEl.className = "highscore-name";
         nameInfoEl.innerHTML = "Name: " + highScoresArr[i].name + " "
-        scoreInfoEl.innerHTML = "Score: " + highScoresArr[i].score + " "
+        scoreInfoEl.innerHTML =  " Score: " + highScoresArr[i].score + " "
+        scoreInfoEl.style.borderStyle = "dashed";
+        scoreInfoEl.style.borderLeft = "none";
+        scoreInfoEl.style.borderRight = "none";
+        scoreInfoEl.style.borderTop = "none";
         listItemEl.appendChild(nameInfoEl);
         listItemEl.appendChild(scoreInfoEl);
     }
     saveScore(highScoresArr)
 };
+//function that calls next question, passes global i, qOrder and initial questions. Q order determined by function generatequestions
 function nextQuestion() {
     console.log(questions())
 
     aOrder = generateAnswer(i, generateQuestion(i++, qOrder, questions()), questions())
     console.log(aOrder, score)
 }
+//loads initial varaibles on page load
 function loadVariables() {
     countdown()
     qOrder = generateRandomQuestion()
     questionArr = questions()
     displayQuizButtons()
 }
-
+//Start quiz function on button press
 function startQuiz() {
     i = 0
     aOrder = loadVariables()
@@ -364,6 +385,7 @@ function startQuiz() {
     nextQuestion()
     return aOrder
 }
+//loads high score page
 function viewHighScores() {
     displayBack()
     displayDynamicList()
@@ -372,11 +394,13 @@ function viewHighScores() {
     displayHighScore()
     createHighScoreEl(highScoresArr)
 }
+//loads display score page
 function displayScore() {
     finalScore.textContent = "Your final score is " + score + "."
     displayFinalScore()
     console.log(score)
 }
+//functions back button
 function restart() {
     i = 0
     qPoint = 0
@@ -392,6 +416,7 @@ function restart() {
     displayInitialPrompt()
 }
 
+//initial page load
 loadScore(highScoresArr)
 removeBack()
 removeHighScore()
@@ -400,4 +425,4 @@ removeQuizButtons()
 initialStartBtn.onclick = startQuiz;
 viewHighScoresBtn.onclick = viewHighScores;
 backbtn.onclick = restart;
-formEl.addEventListener("submit", taskFormHandler);
+formEl.addEventListener("submit", highScoreFormHandler);

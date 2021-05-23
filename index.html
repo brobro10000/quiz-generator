@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 
-<body>
+<body id=body>
   <header class=container>
     <h1 id=quiz-h1>Quiz Generator</h1>
     <h2 id="countdown">Timer: 100 seconds remaining</h2>
@@ -20,7 +20,7 @@
     <h2 id="finalScore-prompt">All Done!</h2>
     <h3 id="finalScore"></h3>
     <div>
-      <h3 id="initials">Enter Initials</h3>
+      <h3 id="initials">Enter Initials: </h3>
       <form id=highscore-form>
         <input type="text" name="initials" id="highScore-box" placeholder="Enter Initials Here">
         <button class="btn" id="save-score" type="submit">Submit</button>
@@ -31,7 +31,7 @@
       incorrect answers will penalize your score/time by 10 seconds</h2>
       <button class="initial-start" id="start">Start</button>
       <button class="high-scoresbtn" id="high-scoresbtn">View High Scores</button>
-      <button class="back" id="back">Back</button>
+
       <button class=answerBtn0 id="answer0"> </button>
       <button class=answerBtn1 id="answer1"> </button>
       <button class=answerBtn2 id="answer2"> </button>
@@ -41,6 +41,7 @@
         <ul class="scores-list" id="scores-list">
 
         </ul>
+        <button class="back" id="back">Back</button>
       </section>
   </main>
 
