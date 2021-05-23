@@ -26,6 +26,8 @@ var timeDecrement = 9;
 var formEl = document.querySelector("#highscore-form");
 var highScoresArr = [{ name: "AJ", score: 0 }]
 highScoresArr = loadScore(highScoresArr)
+var count=0
+var qPoint=0;
 
 function questions() {
     var questionArr = [
@@ -100,6 +102,45 @@ function countdown() {
         }
     }, 1000);
 }
+function questionTimer(){
+    var timeInterval2 = setInterval(function (){
+        count++
+        timeLeft++
+        document.getElementById("answer0").style.pointerEvents= "none"
+        document.getElementById("answer1").style.pointerEvents = "none"
+        document.getElementById("answer2").style.pointerEvents = "none"
+        document.getElementById("answer3").style.pointerEvents = "none"
+        if(count == 3)
+        {
+            qPoint++
+            if(qPoint>9)
+            {
+                resetBackgroundColors()
+                count=0
+                document.getElementById("answer0").style.pointerEvents= "auto"
+        document.getElementById("answer1").style.pointerEvents = "auto"
+        document.getElementById("answer2").style.pointerEvents = "auto"
+        document.getElementById("answer3").style.pointerEvents = "auto"      
+                clearInterval(timeInterval2)
+            } else{
+                document.getElementById("answer0").style.pointerEvents= "auto"
+                document.getElementById("answer1").style.pointerEvents = "auto"
+                document.getElementById("answer2").style.pointerEvents = "auto"
+                document.getElementById("answer3").style.pointerEvents = "auto"    
+            nextQuestion()
+            resetBackgroundColors()
+            count = 0
+            clearInterval(timeInterval2)
+            }
+        }
+    },1000)
+}
+function resetBackgroundColors() {
+    document.getElementById("answer0").style.background = "lightblue"
+    document.getElementById("answer1").style.background = "lightblue"
+    document.getElementById("answer2").style.background = "lightblue"
+    document.getElementById("answer3").style.background = "lightblue"
+}
 function removeQuizButtons() {
     document.getElementById("quiz-h1").style.display = "none"
     document.getElementById("countdown").style.display = "none"
@@ -169,62 +210,83 @@ function displayDynamicList() {
 function removeDynamicList() {
     document.getElementById('dynamicList').style.display = "none"
 }
+
 answerBtn0.addEventListener('click', function () {
     console.log(qOrder, aOrder, aOrder.indexOf(qOrder[i - 1]))
     if (aOrder.indexOf(qOrder[i - 1]) == 0) {
         score++
+        document.getElementById("answer0").style.background = "lightgreen"
+        questionTimer()
     }
     else {
         timeLeft -= timeDecrement
+        document.getElementById("answer0").style.background = "lightcoral"
+        questionTimer()
     }
     if (i == questionArr.length) {
         removeQuizButtons()
+        timeLeft = 1
         return displayScore(score)
     }
-    nextQuestion()
 })
 answerBtn1.addEventListener('click', function () {
     console.log(qOrder, aOrder, aOrder.indexOf(qOrder[i - 1]))
     if (aOrder.indexOf(qOrder[i - 1]) == 1) {
         score++
+        document.getElementById("answer1").style.background = "lightgreen"
+        questionTimer()
     }
     else {
         timeLeft -= timeDecrement
+        document.getElementById("answer1").style.background = "lightcoral"
+        questionTimer()
     }
     if (i == questionArr.length) {
         removeQuizButtons()
+        timeLeft = 1
         return displayScore(score)
     }
-    nextQuestion()
+
 })
 
 answerBtn2.addEventListener('click', function () {
     console.log(qOrder, aOrder, aOrder.indexOf(qOrder[i - 1]))
     if (aOrder.indexOf(qOrder[i - 1]) == 2) {
         score++
+        document.getElementById("answer2").style.background = "lightgreen"
+        questionTimer()
+
     } else {
         timeLeft -= timeDecrement
+        document.getElementById("answer2").style.background = "lightcoral"
+        questionTimer()
     }
     if (i == questionArr.length) {
         removeQuizButtons()
+        timeLeft = 1
         return displayScore(score)
     }
-    nextQuestion()
+
 })
 
 answerBtn3.addEventListener('click', function () {
     console.log(qOrder, aOrder, aOrder.indexOf(qOrder[i - 1]))
     if (aOrder.indexOf(qOrder[i - 1]) == 3) {
         score++
+        document.getElementById("answer3").style.background = "lightgreen"
+        questionTimer()
     }
     else {
         timeLeft -= timeDecrement
+        document.getElementById("answer3").style.background = "lightcoral"
+        questionTimer()
     }
     if (i == questionArr.length) {
         removeQuizButtons()
+        timeLeft = 1
         return displayScore(score)
     }
-    nextQuestion()
+
 })
 
 function saveScore(highScoresArr) {
@@ -319,6 +381,8 @@ function displayScore() {
 }
 function restart() {
     i = 0
+    qPoint = 0
+    timeLeft = 100
     loadScore(highScoresArr)
     removeBack()
     removeHighScore()
