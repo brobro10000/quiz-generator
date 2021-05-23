@@ -39,5 +39,7 @@ button {
 .centered {
   align-content: center;
   text-align: center;
-
+}
+div {
+  display:flex;
 }

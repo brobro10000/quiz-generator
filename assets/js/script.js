@@ -36,6 +36,10 @@ function questions() {
     ]
     return questionArr
 }
+function highScores(){
+    var highScores = []
+    return highScores
+}
 function generateRandomQuestion() {
     var questionArr = questions()
     var qOrder = []
@@ -217,3 +221,6 @@ function displayScore() {
     displayFinalScore()
     console.log(score)
 }
+highScoreList = highScores()
+highScoreList.push({name:"TJ",score:score})
+console.log(highscores)
