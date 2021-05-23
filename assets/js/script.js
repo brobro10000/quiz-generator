@@ -5,6 +5,8 @@ const h1QHeaderEl = document.getElementById("quiz-h1")
 const timerEl = document.getElementById('countdown');
 const initialH1El = document.getElementById('initial-h1')
 const initialStartBtn = document.getElementById('start')
+const viewHighScoresBtn = document.getElementById('high-scoresbtn')
+const backbtn = document.getElementById('back')
 const h1HighScore = document.getElementById('high-scores-h1')
 const finalScorePrompt = document.getElementById('finalScore-prompt')
 const finalScore = document.getElementById('finalScore')
@@ -21,7 +23,10 @@ var questionArr
 var maxAnswers = 4
 var timeLeft = 99;
 var timeDecrement = 9;
+var formEl = document.querySelector("#highscore-form");
 var highScoresArr = [{name:"AJ",score:0}]
+highScoresArr = loadScore(highScoresArr)
+
 function questions() {
     var questionArr = [
 /*0*/        { q: "How do you iterate through an array?", a: "for loops" },
@@ -37,10 +42,7 @@ function questions() {
     ]
     return questionArr
 }
-function highScores(){
-    var highScores = []
-    return highScores
-}
+
 function generateRandomQuestion() {
     var questionArr = questions()
     var qOrder = []
@@ -63,7 +65,7 @@ function generateAnswer(i, qOrder, questionArr) {
     aOrder = generateRandomAnswers(maxAnswers)
     console.log("Index of all random answers from questionsArr " + aOrder, "\nIndex of question from random question: " + qOrder[i], "\nIndex of correct answer from aOrder array: " + aOrder.indexOf(qOrder[i]))
     for (var i = 0; i < aOrder.length; i++) {
-        var btnAEl = document.getElementById("answer" + i)
+        var btnAEl = document.getElementById("answer" + i)       
         btnAEl.textContent = i + 1 + ": " + questionArr[aOrder[i]].a
     }
     return aOrder
@@ -127,7 +129,6 @@ function displayInitialPrompt() {
     document.getElementById("initial-h3").style.display = "block"
 }
 function removeFinalScore() {
-    document.getElementById("high-scores-h1").style.display = "none"
     document.getElementById("finalScore-prompt").style.display = "none"
     document.getElementById("finalScore").style.display = "none"
     document.getElementById("initials").style.display = "none"
@@ -135,7 +136,7 @@ function removeFinalScore() {
     document.getElementById("save-score").style.display="none"
 }
 function displayFinalScore() {
-    document.getElementById("high-scores-h1").style.display = "block"
+//    document.getElementById("high-scores-h1").style.display = "block"
     document.getElementById("finalScore-prompt").style.display = "block"
     document.getElementById("finalScore").style.display = "block"
     document.getElementById("initials").style.display = "block"
@@ -143,10 +144,30 @@ function displayFinalScore() {
     document.getElementById("save-score").style.display="block"
 }
 function removeHighScore(){
+    document.getElementById("high-scores-h1").style.display = "none"
     document.getElementById("savedScore").style.display = "none"
 }
 function displayHighScore(){
-    document.getElementById("savedScore").style.display = "block"
+    document.getElementById("high-scores-h1").style.display = "block"
+   document.getElementById("savedScore").style.display = "block"
+}
+function removeViewHighScore(){
+    document.getElementById('high-scoresbtn').style.display="none"
+}
+function displayViewHighScore(){
+    document.getElementById('high-scoresbtn').style.display="block"
+}
+function removeBack(){
+    document.getElementById('back').style.display="none"
+}
+function displayBack(){
+    document.getElementById('back').style.display="block"
+}
+function displayDynamicList(){
+    document.getElementById('dynamicList').style.display="block"
+}
+function removeDynamicList(){
+    document.getElementById('dynamicList').style.display="none"
 }
 answerBtn0.addEventListener('click', function () {
     console.log(qOrder, aOrder, aOrder.indexOf(qOrder[i - 1]))
@@ -205,6 +226,65 @@ answerBtn3.addEventListener('click', function () {
     }
     nextQuestion()
 })
+
+function saveScore(highScoresArr)
+{
+    localStorage.setItem("HighScore", JSON.stringify(highScoresArr))
+}
+function loadScore(highScoresArr)
+{
+    var returnedHighScoresArr = localStorage.getItem("HighScore")
+    if(!returnedHighScoresArr)
+    {
+        return false
+    }
+    returnedHighScoresArr = JSON.parse(returnedHighScoresArr)
+    highScoresArr = returnedHighScoresArr
+    return highScoresArr
+}
+function taskFormHandler(event) {
+  event.preventDefault();
+  var highScoreNameInput = document.querySelector("input[name='initials']").value;
+  
+console.log(highScoresArr, highScoreNameInput)
+  // check if inputs are empty (validate)
+  if (highScoreNameInput === "") {
+    alert("No initials entered");
+    return false;
+  }{
+    removeFinalScore()
+    displayDynamicList()
+    displayHighScore()
+    displayBack()
+  }
+  formEl.reset();
+    highScoreArr = loadScore(highScoresArr)
+    saveScore(highScoresArr)
+
+  document.querySelector("input[name='initials']").value = "";
+    highScoresArr.push({name:highScoreNameInput,score:score})
+    console.log(highScoresArr)
+
+  saveScore(highScoresArr)
+  createHighScoreEl(highScoresArr)
+};
+var createHighScoreEl = function(highScoresArr) {
+  // create list item
+  var listItemEl = document.getElementById('scores-list');
+
+  // create div to hold task info and add to list item
+  for(var i = 0; i<highScoresArr.length;i++){
+  var scoreInfoEl = document.createElement("p");
+  var nameInfoEl = document.createElement("p");
+  scoreInfoEl.className = "highscore-score";
+  nameInfoEl.className = "highscore-name";
+  nameInfoEl.innerHTML = "Name: " + highScoresArr[i].name + " "
+  scoreInfoEl.innerHTML = "Score: " + highScoresArr[i].score + " "
+  listItemEl.appendChild(nameInfoEl);
+  listItemEl.appendChild(scoreInfoEl);
+  }
+  saveScore(highScoresArr)
+};
 function nextQuestion() {
     console.log(questions())
 
@@ -221,75 +301,44 @@ function loadVariables() {
 function startQuiz() {
     i = 0
     aOrder = loadVariables()
+    removeViewHighScore()
     removeInitialPrompt();
     displayQuizButtons()
     nextQuestion()
     return aOrder
 }
-removeHighScore()
-removeFinalScore()
-removeQuizButtons()
-initialStartBtn.onclick = startQuiz;
-
+function viewHighScores() {
+    displayBack()
+    displayDynamicList()
+    removeViewHighScore()
+    removeInitialPrompt()
+    displayHighScore()
+    createHighScoreEl(highScoresArr)
+}
 function displayScore() {
     finalScore.textContent = "Your final score is "+ score +"."
     displayFinalScore()
     console.log(score)
 }
-function saveScore()
-{
-    localStorage.setItem("HighScore", JSON.stringify(highScoresArr))
+function restart() {
+    i = 0
+    loadScore(highScoresArr)
+removeBack()
+removeHighScore()
+removeFinalScore()
+removeQuizButtons()
+removeHighScore()
+removeDynamicList()
+displayViewHighScore()
+displayInitialPrompt()
 }
-// function loadScore()
-// {
-//     highScoreList = localStorage.getItem("HighScore", JSON.stringify(highScoreList))
-//     highScoreList = JSON.parse(highScoreList)
-//     loadScoreEl.textContent = highScoreList[0].name + " " + highScoreList[0].score
-// }
-// highScoreList = highScores()
-// var highscoreInitials = document.querySelector("input[name='initials']").value;
-// highScoreList.push({name:highScoreInitials,score:score})
-// saveScore()
-// loadScore()
-// //console.log(highscores)
 
-
-
-var formEl = document.querySelector("#highscore-form");
-
-function taskFormHandler(event) {
-  event.preventDefault();
-  var highScoreNameInput = document.querySelector("input[name='initials']").value;
-  
-console.log(highScoresArr, highScoreNameInput)
-  // check if inputs are empty (validate)
-  if (highScoreNameInput === "") {
-    alert("No initials entered");
-    return false;
-  }
-  
-  formEl.reset();
-
-  // reset form fields for next task to be entered
-  document.querySelector("input[name='initials']").value = "";
-    highScoresArr.push({name:highScoreNameInput,score:score})
-    console.log(highScoresArr)
-  saveScore()
-  createHighScoreEl(highScoresArr);
-};
-
-var createHighScoreEl = function(highScoresArr) {
-  // create list item
-  var listItemEl = document.getElementById('scores-list');
-
-  // create div to hold task info and add to list item
-  for(var i = 0; i<highScoresArr.length;i++){
-  var scoreInfoEl = document.createElement("li");
-  console.log(highScoresArr)
-  scoreInfoEl.className = "highscore-info";
-  scoreInfoEl.innerHTML = highScoresArr[i].name + highScoresArr[i].score
-  listItemEl.appendChild(scoreInfoEl);
-  }
-};
-
+loadScore(highScoresArr)
+removeBack()
+removeHighScore()
+removeFinalScore()
+removeQuizButtons()
+initialStartBtn.onclick = startQuiz;
+viewHighScoresBtn.onclick =  viewHighScores;
+backbtn.onclick = restart;
 formEl.addEventListener("submit", taskFormHandler);
