@@ -1,11 +1,14 @@
 const min = 0
 const max = 9
-const h1InitialEl = document.getElementById("initial-h1")
 const h2QEl = document.getElementById("question")
 const h1QHeaderEl = document.getElementById("quiz-h1")
 const timerEl = document.getElementById('countdown');
 const initialH1El = document.getElementById('initial-h1')
 const initialStartBtn = document.getElementById('start')
+const h1HighScore = document.getElementById('high-scores-h1')
+const finalScorePrompt = document.getElementById('finalScore-prompt')
+const finalScore = document.getElementById('finalScore')
+const initials = document.getElementById('initials')
 const answerBtn0 = document.querySelector('#answer0')
 const answerBtn1 = document.querySelector('#answer1')
 const answerBtn2 = document.querySelector('#answer2')
@@ -15,6 +18,8 @@ var i = 0;
 var qOrder;
 var questionArr
 var maxAnswers = 4
+var timeLeft = 99;
+var timeDecrement = 9;
 
 function questions() {
     var questionArr = [
@@ -75,9 +80,7 @@ function getRandom(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 function countdown() {
-    var timeLeft = 99;
     var timeInterval = setInterval(function () {
-
         if (timeLeft > 1) {
             timerEl.textContent = "Timer: " + timeLeft + ' seconds remaining';
             timeLeft--;
@@ -90,9 +93,6 @@ function countdown() {
         }
     }, 1000);
 }
-
-
-
 function removeQuizButtons() {
     document.getElementById("quiz-h1").style.display = "none"
     document.getElementById("countdown").style.display = "none"
@@ -121,15 +121,28 @@ function displayInitialPrompt() {
     document.getElementById("initial-h1").style.display = "block"
     document.getElementById("initial-h3").style.display = "block"
 }
-
+function removeFinalScore() {
+    document.getElementById("high-scores-h1").style.display = "none"
+    document.getElementById("finalScore-prompt").style.display = "none"
+    document.getElementById("finalScore").style.display = "none"
+    document.getElementById("initials").style.display = "none"
+}
+function displayFinalScore() {
+    document.getElementById("high-scores-h1").style.display = "block"
+    document.getElementById("finalScore-prompt").style.display = "block"
+    document.getElementById("finalScore").style.display = "block"
+    document.getElementById("initials").style.display = "block"
+}
 answerBtn0.addEventListener('click', function () {
     console.log(qOrder, aOrder, aOrder.indexOf(qOrder[i - 1]))
     if (aOrder.indexOf(qOrder[i - 1]) == 0)
         score++
-
+        else {
+            timeLeft -= timeDecrement
+        }
     if (i == questionArr.length) {
         removeQuizButtons()
-        return console.log("end of quiz")
+        return displayScore(score)
     }
     nextQuestion()
 })
@@ -137,10 +150,12 @@ answerBtn1.addEventListener('click', function () {
     console.log(qOrder, aOrder, aOrder.indexOf(qOrder[i - 1]))
     if (aOrder.indexOf(qOrder[i - 1]) == 1)
         score++
-
+    else {
+        timeLeft -= timeDecrement
+    }
     if (i == questionArr.length) {
         removeQuizButtons()
-        return console.log("end of quiz")
+        return displayScore(score)
     }
     nextQuestion()
 })
@@ -149,10 +164,12 @@ answerBtn2.addEventListener('click', function () {
     console.log(qOrder, aOrder, aOrder.indexOf(qOrder[i - 1]))
     if (aOrder.indexOf(qOrder[i - 1]) == 2)
         score++
-
+        else {
+            timeLeft -= timeDecrement
+        }
     if (i == questionArr.length) {
         removeQuizButtons()
-        return console.log("end of quiz")
+        return displayScore(score)
     }
     nextQuestion()
 })
@@ -161,10 +178,12 @@ answerBtn3.addEventListener('click', function () {
     console.log(qOrder, aOrder, aOrder.indexOf(qOrder[i - 1]))
     if (aOrder.indexOf(qOrder[i - 1]) == 3)
         score++
-
+        else {
+            timeLeft -= timeDecrement
+        }
     if (i == questionArr.length) {
         removeQuizButtons()
-        return console.log("end of quiz")
+        return displayScore(score)
     }
     nextQuestion()
 })
@@ -182,14 +201,19 @@ function loadVariables() {
 }
 
 function startQuiz() {
+    i = 0
     aOrder = loadVariables()
     removeInitialPrompt();
     displayQuizButtons()
     nextQuestion()
     return aOrder
 }
-
+removeFinalScore()
+removeQuizButtons()
 initialStartBtn.onclick = startQuiz;
-removeQuizButtons();
 
-
+function displayScore() {
+    finalScore.textContent = "Your final score is "+ score +"."
+    displayFinalScore()
+    console.log(score)
+}
