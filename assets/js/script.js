@@ -21,7 +21,8 @@ var questionArr
 var maxAnswers = 4
 var timeLeft = 99;
 var timeDecrement = 9;
-
+var highScoresArr = [{name:"AJ",score:0}]
+var mySound = new Audio("Wrong Buzzer Sound FX.mp3")
 function questions() {
     var questionArr = [
 /*0*/        { q: "How do you iterate through an array?", a: "for loops" },
@@ -131,17 +132,29 @@ function removeFinalScore() {
     document.getElementById("finalScore-prompt").style.display = "none"
     document.getElementById("finalScore").style.display = "none"
     document.getElementById("initials").style.display = "none"
+    document.getElementById("highScore-box").style.display="none"
+    document.getElementById("save-score").style.display="none"
 }
 function displayFinalScore() {
     document.getElementById("high-scores-h1").style.display = "block"
     document.getElementById("finalScore-prompt").style.display = "block"
     document.getElementById("finalScore").style.display = "block"
     document.getElementById("initials").style.display = "block"
+    document.getElementById("highScore-box").style.display="block"
+    document.getElementById("save-score").style.display="block"
+}
+function removeHighScore(){
+    document.getElementById("savedScore").style.display = "none"
+}
+function displayHighScore(){
+    document.getElementById("savedScore").style.display = "block"
 }
 answerBtn0.addEventListener('click', function () {
     console.log(qOrder, aOrder, aOrder.indexOf(qOrder[i - 1]))
-    if (aOrder.indexOf(qOrder[i - 1]) == 0)
+    if (aOrder.indexOf(qOrder[i - 1]) == 0){
         score++
+        mySound.play();
+    }
         else {
             timeLeft -= timeDecrement
         }
@@ -153,8 +166,10 @@ answerBtn0.addEventListener('click', function () {
 })
 answerBtn1.addEventListener('click', function () {
     console.log(qOrder, aOrder, aOrder.indexOf(qOrder[i - 1]))
-    if (aOrder.indexOf(qOrder[i - 1]) == 1)
+    if (aOrder.indexOf(qOrder[i - 1]) == 1){
         score++
+        mySound.play();
+    }
     else {
         timeLeft -= timeDecrement
     }
@@ -167,9 +182,10 @@ answerBtn1.addEventListener('click', function () {
 
 answerBtn2.addEventListener('click', function () {
     console.log(qOrder, aOrder, aOrder.indexOf(qOrder[i - 1]))
-    if (aOrder.indexOf(qOrder[i - 1]) == 2)
+    if (aOrder.indexOf(qOrder[i - 1]) == 2){
         score++
-        else {
+        mySound.play();
+    }  else {
             timeLeft -= timeDecrement
         }
     if (i == questionArr.length) {
@@ -181,8 +197,10 @@ answerBtn2.addEventListener('click', function () {
 
 answerBtn3.addEventListener('click', function () {
     console.log(qOrder, aOrder, aOrder.indexOf(qOrder[i - 1]))
-    if (aOrder.indexOf(qOrder[i - 1]) == 3)
+    if (aOrder.indexOf(qOrder[i - 1]) == 3){
         score++
+        mySound.play();
+    }
         else {
             timeLeft -= timeDecrement
         }
@@ -213,6 +231,7 @@ function startQuiz() {
     nextQuestion()
     return aOrder
 }
+removeHighScore()
 removeFinalScore()
 removeQuizButtons()
 initialStartBtn.onclick = startQuiz;
@@ -224,16 +243,58 @@ function displayScore() {
 }
 function saveScore()
 {
-    localStorage.setItem("HighScore", JSON.stringify(highScoreList))
+    localStorage.setItem("HighScore", JSON.stringify(highScoresArr))
 }
-function loadScore()
-{
-    highScoreList = localStorage.getItem("HighScore", JSON.stringify(highScoreList))
-    highScoreList = JSON.parse(highScoreList)
-    loadScoreEl.textContent = highScoreList[0].name + " " + highScoreList[0].score
-}
-highScoreList = highScores()
-highScoreList.push({name:"TJ",score:score})
-saveScore()
-loadScore()
-//console.log(highscores)
+// function loadScore()
+// {
+//     highScoreList = localStorage.getItem("HighScore", JSON.stringify(highScoreList))
+//     highScoreList = JSON.parse(highScoreList)
+//     loadScoreEl.textContent = highScoreList[0].name + " " + highScoreList[0].score
+// }
+// highScoreList = highScores()
+// var highscoreInitials = document.querySelector("input[name='initials']").value;
+// highScoreList.push({name:highScoreInitials,score:score})
+// saveScore()
+// loadScore()
+// //console.log(highscores)
+
+
+
+var formEl = document.querySelector("#highscore-form");
+
+function taskFormHandler(event) {
+  event.preventDefault();
+  var highScoreNameInput = document.querySelector("input[name='initials']").value;
+  
+console.log(highScoresArr, highScoreNameInput)
+  // check if inputs are empty (validate)
+  if (highScoreNameInput === "") {
+    alert("No initials entered");
+    return false;
+  }
+  
+  formEl.reset();
+
+  // reset form fields for next task to be entered
+  document.querySelector("input[name='initials']").value = "";
+    highScoresArr.push({name:highScoreNameInput,score:score})
+    console.log(highScoresArr)
+  saveScore()
+  createHighScoreEl(highScoresArr);
+};
+
+var createHighScoreEl = function(highScoresArr) {
+  // create list item
+  var listItemEl = document.getElementById('scores-list');
+
+  // create div to hold task info and add to list item
+  for(var i = 0; i<highScoresArr.length;i++){
+  var scoreInfoEl = document.createElement("li");
+  console.log(highScoresArr)
+  scoreInfoEl.className = "highscore-info";
+  scoreInfoEl.innerHTML = highScoresArr[i].name + highScoresArr[i].score
+  listItemEl.appendChild(scoreInfoEl);
+  }
+};
+
+formEl.addEventListener("submit", taskFormHandler);
