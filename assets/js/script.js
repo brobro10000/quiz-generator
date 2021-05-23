@@ -26,8 +26,8 @@ var timeDecrement = 9;
 var formEl = document.querySelector("#highscore-form");
 var highScoresArr = [{ name: "AJ", score: 0 }]
 highScoresArr = loadScore(highScoresArr)
-var count=0
-var qPoint=0;
+var count = 0
+var qPoint = 0;
 
 function questions() {
     var questionArr = [
@@ -102,38 +102,36 @@ function countdown() {
         }
     }, 1000);
 }
-function questionTimer(){
-    var timeInterval2 = setInterval(function (){
+function questionTimer() {
+    var timeInterval2 = setInterval(function () {
         count++
         timeLeft++
-        document.getElementById("answer0").style.pointerEvents= "none"
+        document.getElementById("answer0").style.pointerEvents = "none"
         document.getElementById("answer1").style.pointerEvents = "none"
         document.getElementById("answer2").style.pointerEvents = "none"
         document.getElementById("answer3").style.pointerEvents = "none"
-        if(count == 3)
-        {
+        if (count == 3) {
             qPoint++
-            if(qPoint>9)
-            {
+            if (qPoint > 9) {
                 resetBackgroundColors()
-                count=0
-                document.getElementById("answer0").style.pointerEvents= "auto"
-        document.getElementById("answer1").style.pointerEvents = "auto"
-        document.getElementById("answer2").style.pointerEvents = "auto"
-        document.getElementById("answer3").style.pointerEvents = "auto"      
-                clearInterval(timeInterval2)
-            } else{
-                document.getElementById("answer0").style.pointerEvents= "auto"
+                count = 0
+                document.getElementById("answer0").style.pointerEvents = "auto"
                 document.getElementById("answer1").style.pointerEvents = "auto"
                 document.getElementById("answer2").style.pointerEvents = "auto"
-                document.getElementById("answer3").style.pointerEvents = "auto"    
-            nextQuestion()
-            resetBackgroundColors()
-            count = 0
-            clearInterval(timeInterval2)
+                document.getElementById("answer3").style.pointerEvents = "auto"
+                clearInterval(timeInterval2)
+            } else {
+                document.getElementById("answer0").style.pointerEvents = "auto"
+                document.getElementById("answer1").style.pointerEvents = "auto"
+                document.getElementById("answer2").style.pointerEvents = "auto"
+                document.getElementById("answer3").style.pointerEvents = "auto"
+                nextQuestion()
+                resetBackgroundColors()
+                count = 0
+                clearInterval(timeInterval2)
             }
         }
-    },1000)
+    }, 1000)
 }
 function resetBackgroundColors() {
     document.getElementById("answer0").style.background = "lightblue"
