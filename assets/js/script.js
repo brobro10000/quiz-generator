@@ -9,6 +9,7 @@ const h1HighScore = document.getElementById('high-scores-h1')
 const finalScorePrompt = document.getElementById('finalScore-prompt')
 const finalScore = document.getElementById('finalScore')
 const initials = document.getElementById('initials')
+const loadScoreEl = document.getElementById('savedScore')
 const answerBtn0 = document.querySelector('#answer0')
 const answerBtn1 = document.querySelector('#answer1')
 const answerBtn2 = document.querySelector('#answer2')
@@ -221,6 +222,18 @@ function displayScore() {
     displayFinalScore()
     console.log(score)
 }
+function saveScore()
+{
+    localStorage.setItem("HighScore", JSON.stringify(highScoreList))
+}
+function loadScore()
+{
+    highScoreList = localStorage.getItem("HighScore", JSON.stringify(highScoreList))
+    highScoreList = JSON.parse(highScoreList)
+    loadScoreEl.textContent = highScoreList[0].name + " " + highScoreList[0].score
+}
 highScoreList = highScores()
 highScoreList.push({name:"TJ",score:score})
-console.log(highscores)
+saveScore()
+loadScore()
+//console.log(highscores)
