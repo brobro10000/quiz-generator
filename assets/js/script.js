@@ -1,7 +1,20 @@
 const min = 0
 const max = 9
-const body = document.body
+const h1InitialEl = document.getElementById("initial-h1")
 const h2QEl = document.getElementById("question")
+const h1QHeaderEl = document.getElementById("quiz-h1")
+const timerEl = document.getElementById('countdown');
+const initialH1El = document.getElementById('initial-h1')
+const initialStartBtn = document.getElementById('start')
+const answerBtn0 = document.querySelector('#answer0')
+const answerBtn1 = document.querySelector('#answer1')
+const answerBtn2 = document.querySelector('#answer2')
+const answerBtn3 = document.querySelector('#answer3')
+var score = 0;
+var i = 0;
+var qOrder;
+var questionArr
+var maxAnswers = 4
 
 function questions() {
     var questionArr = [
@@ -57,17 +70,10 @@ function generateRandomAnswers(maxAnswers) {
         return generateRandomAnswers(maxAnswers)
     return aOrder
 }
-
 //Random number generator inclusive
 function getRandom(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-
-
-
-var timerEl = document.getElementById('countdown');
-
-
 function countdown() {
     var timeLeft = 99;
     var timeInterval = setInterval(function () {
@@ -85,40 +91,44 @@ function countdown() {
     }, 1000);
 }
 
-var i = 0;
-var qOrder;
-var questionArr
-var maxAnswers = 4
 
-var startBtn = document.getElementById('start');
-startBtn.onclick = startQuiz;
-var answerBtn0 = document.querySelector('#answer0')
-var answerBtn1 = document.querySelector('#answer1')
-var answerBtn2 = document.querySelector('#answer2')
-var answerBtn3 = document.querySelector('#answer3')
-removeButtons();
-function removeButtons() {
+
+function removeQuizButtons() {
+    document.getElementById("quiz-h1").style.display = "none"
+    document.getElementById("countdown").style.display = "none"
     document.getElementById("question").style.display = "none"
     document.getElementById("answer0").style.display = "none"
     document.getElementById("answer1").style.display = "none"
     document.getElementById("answer2").style.display = "none"
     document.getElementById("answer3").style.display = "none"
 }
-function displayButtons() {
+function displayQuizButtons() {
+    document.getElementById("quiz-h1").style.display = "block"
+    document.getElementById("countdown").style.display = "block"
     document.getElementById("question").style.display = "block"
     document.getElementById("answer0").style.display = "block"
     document.getElementById("answer1").style.display = "block"
     document.getElementById("answer2").style.display = "block"
     document.getElementById("answer3").style.display = "block"
 }
+function removeInitialPrompt() {
+    document.getElementById("start").style.display = "none"
+    document.getElementById("initial-h1").style.display = "none"
+    document.getElementById("initial-h3").style.display = "none"
+}
+function displayInitialPrompt() {
+    document.getElementById("start").style.display = "block"
+    document.getElementById("initial-h1").style.display = "block"
+    document.getElementById("initial-h3").style.display = "block"
+}
 
-var score = 0;
 answerBtn0.addEventListener('click', function () {
     console.log(qOrder, aOrder, aOrder.indexOf(qOrder[i - 1]))
     if (aOrder.indexOf(qOrder[i - 1]) == 0)
         score++
 
     if (i == questionArr.length) {
+        removeQuizButtons()
         return console.log("end of quiz")
     }
     nextQuestion()
@@ -129,6 +139,7 @@ answerBtn1.addEventListener('click', function () {
         score++
 
     if (i == questionArr.length) {
+        removeQuizButtons()
         return console.log("end of quiz")
     }
     nextQuestion()
@@ -140,6 +151,7 @@ answerBtn2.addEventListener('click', function () {
         score++
 
     if (i == questionArr.length) {
+        removeQuizButtons()
         return console.log("end of quiz")
     }
     nextQuestion()
@@ -151,26 +163,33 @@ answerBtn3.addEventListener('click', function () {
         score++
 
     if (i == questionArr.length) {
+        removeQuizButtons()
         return console.log("end of quiz")
     }
     nextQuestion()
 })
-
-function loadVariables() {
-    countdown()
-    qOrder = generateRandomQuestion()
-    questionArr = questions()
-    displayButtons()
-}
-
 function nextQuestion() {
     console.log(questions())
 
     aOrder = generateAnswer(i, generateQuestion(i++, qOrder, questions()), questions())
     console.log(aOrder, score)
 }
+function loadVariables() {
+    countdown()
+    qOrder = generateRandomQuestion()
+    questionArr = questions()
+    displayQuizButtons()
+}
+
 function startQuiz() {
     aOrder = loadVariables()
+    removeInitialPrompt();
+    displayQuizButtons()
     nextQuestion()
     return aOrder
 }
+
+initialStartBtn.onclick = startQuiz;
+removeQuizButtons();
+
+

@@ -7,13 +7,15 @@
   margin: 10px 30%;
   height: 100px;
   text-align: center;
-  padding: 10px 25px
+  padding: 10px 25px;
+  align-content: center;
 }
 .question-container{
   margin:0% 30%;
   height: 100%;
   word-wrap: normal;
-  padding: 10px 25px
+  padding: 10px 25px;
+  text-align: center;
 }
 .question-container h2{
   margin:10px;
@@ -26,4 +28,16 @@
 button {
   list-style: none;
   list-style-type: none;
+}
+.start-prompt {
+  margin: 10px 30%;
+  height: 100px;
+  text-align: center;
+  padding: 10px 25px;
+  align-content: center;
+}
+.centered {
+  align-content: center;
+  text-align: center;
+
 }
