@@ -9,36 +9,36 @@
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 
-<body id=body>
-  <header class=container>
+<body id=body><!--Start-->
+  <header class=container><!--Header Contains Quiz Header and timer for the quiz-->
     <h1 id=quiz-h1>Quiz Generator</h1>
     <h2 id="countdown">Timer: 100 seconds remaining</h2>
   </header>
-  <main class=question-container>
-    <h1 id=initial-h1 class=centered>Code Quiz</h1>
-    <h2 id="question"></h2>
-    <h2 id="finalScore-prompt">All Done!</h2>
-    <h3 id="finalScore"></h3>
-    <div>
-      <h3 id="initials">Enter Initials: </h3>
-      <form id=highscore-form>
+  <main class=question-container><!--question-container contains all other elements in the quiz-->
+    <h1 id=initial-h1 class=centered>Code Quiz</h1><!--Introductory H1-->
+    <h2 id="question"></h2><!--Dynamically called single static HTML-->
+    <h2 id="finalScore-prompt">All Done!</h2><!--All Done for Submit Prompt-->
+    <h3 id="finalScore"></h3><!--Final Score for Submit Prompt-->
+    <div><!--Div Container that holds submission-->
+      <h3 id="initials">Enter Initials: </h3><!--Initials for Prompt-->
+      <form id=highscore-form><!--Form for submission-->
         <input type="text" name="initials" id="highScore-box" placeholder="Enter Initials Here">
         <button class="btn" id="save-score" type="submit">Submit</button>
       </form>
       <p id=savedScore></p>
     </div>
     <h3 id=initial-h3> Try to answer the following code-related questions within the time limit. Keep in mind that
-      incorrect answers will penalize your score/time by 10 seconds</h2>
-      <button class="initial-start" id="start">Start</button>
-      <button class="high-scoresbtn" id="high-scoresbtn">View High Scores</button>
-      <button class="back" id="back">Back</button>
-      <button class=answerBtn0 id="answer0"> </button>
+      incorrect answers will penalize your score/time by 10 seconds</h3><!--Instructions for Quiz-->
+      <button class="initial-start" id="start">Start</button><!--Start Button-->
+      <button class="high-scoresbtn" id="high-scoresbtn">View High Scores</button><!--View High Score Buttons-->
+      <button class="back" id="back">Back</button><!--Back Button-->
+      <button class=answerBtn0 id="answer0"> </button><!--Dynamically called static HTML for all the answers-->
       <button class=answerBtn1 id="answer1"> </button>
       <button class=answerBtn2 id="answer2"> </button>
       <button class=answerBtn3 id="answer3"> </button>
-      <section class="task-list-wrapper" id="dynamicList">
-        <h1 id=high-scores-h1>High Scores</h1>
-        <ul class="scores-list" id="scores-list">
+      <section class="task-list-wrapper" id="dynamicList"><!--Section for dynamically called highscore list-->
+        <h1 id=high-scores-h1>High Scores</h1><!--HighScore Header-->
+        <ul class="scores-list" id="scores-list"><!--Dynamically called and filled list of High scores-->
 
         </ul>
       </section>
