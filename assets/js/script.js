@@ -17,6 +17,7 @@ const answerBtn0 = document.querySelector('#answer0')
 const answerBtn1 = document.querySelector('#answer1')
 const answerBtn2 = document.querySelector('#answer2')
 const answerBtn3 = document.querySelector('#answer3')
+
 var score = 0;
 var i = 0;
 var qOrder;
@@ -28,14 +29,17 @@ var formEl = document.querySelector("#highscore-form");
 var scoreInfoEl = document.createElement("h3");
 var nameInfoEl = document.createElement("h3");
 var highScoresArr = [{ name: "AJ", score: 0 }]
+var count = 0
+var qPoint = 0
+
+//if local empty populates with dummy AJ
 highScoresArr = loadScore(highScoresArr)
-if(highScoresArr == false)
-{
+if (highScoresArr == false) {
     highScoresArr = [{ name: "AJ", score: 0 }]
 }
+
 console.log(highScoresArr)
-var count = 0
-var qPoint = 0;
+
 
 //array of objects of our questions
 function questions() {
@@ -118,7 +122,8 @@ function countdown() {
         }
     }, 1000);
 }
-//timer between each answer click. Displays green for correct and coral for incorrect. disables mouse events between clicks, 'pauses' time
+/*timer between each answer click. Displays green for correct and coral 
+for incorrect. disables mouse events between clicks, 'pauses' time*/
 function questionTimer() {
     var timeInterval2 = setInterval(function () {
         count++
@@ -158,7 +163,8 @@ function resetBackgroundColors() {
     document.getElementById("answer3").style.background = "lightblue"
 }
 
-//blocks of code that remove elements from HTML between page phases with remove/display elements Lines 155-223
+/*blocks of code that remove elements from HTML between 
+page phases with remove/display elements Lines 167-235*/
 function removeQuizButtons() {
     document.getElementById("quiz-h1").style.display = "none"
     document.getElementById("countdown").style.display = "none"
@@ -195,7 +201,6 @@ function removeFinalScore() {
     document.getElementById("save-score").style.display = "none"
 }
 function displayFinalScore() {
-    //    document.getElementById("high-scores-h1").style.display = "block"
     document.getElementById("finalScore-prompt").style.display = "block"
     document.getElementById("finalScore").style.display = "block"
     document.getElementById("initials").style.display = "block"
@@ -228,7 +233,10 @@ function displayDynamicList() {
 function removeDynamicList() {
     document.getElementById('dynamicList').style.display = "none"
 }
-//Event listeners for buttons, runs timer on click and increments score, checks correct from index of the qorders index Lines 225-301
+
+/*Event listeners for buttons, runs timer on click and increments score, 
+checks correct from index of the qorders index Lines 237-313*/
+//btn0
 answerBtn0.addEventListener('click', function () {
     console.log(qOrder, aOrder, aOrder.indexOf(qOrder[i - 1]))
     if (aOrder.indexOf(qOrder[i - 1]) == 0) {
@@ -247,6 +255,7 @@ answerBtn0.addEventListener('click', function () {
         return displayScore(score)
     }
 })
+//btn1
 answerBtn1.addEventListener('click', function () {
     console.log(qOrder, aOrder, aOrder.indexOf(qOrder[i - 1]))
     if (aOrder.indexOf(qOrder[i - 1]) == 1) {
@@ -264,9 +273,8 @@ answerBtn1.addEventListener('click', function () {
         timeLeft = 1
         return displayScore(score)
     }
-
 })
-
+//btn2
 answerBtn2.addEventListener('click', function () {
     console.log(qOrder, aOrder, aOrder.indexOf(qOrder[i - 1]))
     if (aOrder.indexOf(qOrder[i - 1]) == 2) {
@@ -284,9 +292,8 @@ answerBtn2.addEventListener('click', function () {
         timeLeft = 1
         return displayScore(score)
     }
-
 })
-
+//btn3
 answerBtn3.addEventListener('click', function () {
     console.log(qOrder, aOrder, aOrder.indexOf(qOrder[i - 1]))
     if (aOrder.indexOf(qOrder[i - 1]) == 3) {
@@ -304,12 +311,13 @@ answerBtn3.addEventListener('click', function () {
         timeLeft = 1
         return displayScore(score)
     }
-
 })
+
 //Saves score to local
 function saveScore(highScoresArr) {
     localStorage.setItem("HighScore", JSON.stringify(highScoresArr))
 }
+
 //loads score from local
 function loadScore(highScoresArr) {
     var returnedHighScoresArr = localStorage.getItem("HighScore")
@@ -320,6 +328,7 @@ function loadScore(highScoresArr) {
     highScoresArr = returnedHighScoresArr
     return highScoresArr
 }
+
 //handles submit button input from prompt, passes highScoresArr to createHighScoreEl
 function highScoreFormHandler(event) {
     event.preventDefault();
@@ -347,18 +356,19 @@ function highScoreFormHandler(event) {
     saveScore(highScoresArr)
     createHighScoreEl(highScoresArr)
 };
+
 //Creates High score list
 var createHighScoreEl = function (highScoresArr) {
 
     var listItemEl = document.getElementById('scores-list');
-   
+
     for (var i = 0; i < highScoresArr.length; i++) {
         var scoreInfoEl = document.createElement("h3");
         var nameInfoEl = document.createElement("h3");
         scoreInfoEl.id = "highscore-score";
         nameInfoEl.id = "highscore-name";
         nameInfoEl.innerHTML = "Name: " + highScoresArr[i].name + " "
-        scoreInfoEl.innerHTML =  " Score: " + highScoresArr[i].score + " "
+        scoreInfoEl.innerHTML = " Score: " + highScoresArr[i].score + " "
         scoreInfoEl.style.borderStyle = "dashed";
         scoreInfoEl.style.borderLeft = "none";
         scoreInfoEl.style.borderRight = "none";
@@ -368,23 +378,27 @@ var createHighScoreEl = function (highScoresArr) {
     }
     saveScore(highScoresArr)
 };
-var removeHighScoreEl = function()
-{
-    for(var i=0;i<highScoresArr.length;i++){
-    var listItemEl = document.getElementById('scores-list')
-    var nameInfoEl = document.getElementById('highscore-name')
-    var scoreInfoEl = document.getElementById('highscore-score')
-    listItemEl.removeChild(nameInfoEl)
-    listItemEl.removeChild(scoreInfoEl)
-    }   
+
+//removes every child element when called
+var removeHighScoreEl = function () {
+    for (var i = 0; i < highScoresArr.length; i++) {
+        var listItemEl = document.getElementById('scores-list')
+        var nameInfoEl = document.getElementById('highscore-name')
+        var scoreInfoEl = document.getElementById('highscore-score')
+        listItemEl.removeChild(nameInfoEl)
+        listItemEl.removeChild(scoreInfoEl)
+    }
 }
-//function that calls next question, passes global i, qOrder and initial questions. Q order determined by function generatequestions
+
+/*function that calls next question, passes global i, qOrder and initial questions. 
+Q order determined by function generatequestions*/
 function nextQuestion() {
     console.log(questions())
 
     aOrder = generateAnswer(i, generateQuestion(i++, qOrder, questions()), questions())
     console.log(aOrder, score)
 }
+
 //loads initial varaibles on page load
 function loadVariables() {
     countdown()
@@ -392,6 +406,7 @@ function loadVariables() {
     questionArr = questions()
     displayQuizButtons()
 }
+
 //Start quiz function on button press
 function startQuiz() {
     i = 0
@@ -402,6 +417,7 @@ function startQuiz() {
     nextQuestion()
     return aOrder
 }
+
 //loads high score page
 function viewHighScores() {
     createHighScoreEl(highScoresArr)
@@ -411,12 +427,14 @@ function viewHighScores() {
     removeInitialPrompt()
     displayHighScore()
 }
+
 //loads display score page
 function displayScore() {
     finalScore.textContent = "Your final score is " + score + "."
     displayFinalScore()
     console.log(score)
 }
+
 //functions back button
 function restart() {
     i = 0
