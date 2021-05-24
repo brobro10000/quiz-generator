@@ -1,9 +1,11 @@
+/*General CSS Rules*/
 *{
   margin:0;
   padding: 0;
   box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
 }
+/*Rules for header*/
 .container {
   margin: 10px 30%;
   height: 100px;
@@ -11,6 +13,7 @@
   padding: 10px 25px;
   align-content: center;
 }
+/*Rules for main container containing quiz, highscore and submission*/
 .question-container{
   border-style: solid;
   border-width: 5px;
@@ -23,6 +26,8 @@
   padding: 10px 25px;
   text-align: center;
 }
+
+/*Element specific question-container*/
 .question-container h2{
   margin:10px;
   text-align: left;
@@ -30,24 +35,6 @@
 .question-container h3{
   margin:5px 10px;
   text-align: left;
-}
-.start-prompt {
-  margin: 10px 30%;
-  height: 100px;
-  text-align: center;
-  padding: 10px 25px;
-  align-content: center;
-}
-.centered {
-  align-content: center;
-  text-align: center;
-}
-div {
-  display:flex;
-}
-h1 {
-
-  color:#364dcf;
 }
 #high-scores-h1 {
   display: block;
@@ -58,6 +45,15 @@ h1 {
   border-left: none;
   border-right: none;
 }
+/*Container for Form*/
+div {
+  display:flex;
+}
+
+/*Global CSS for major hx values*/
+h1 {
+  color:#364dcf;
+}
 h2{
   
   color:#364dcf;
@@ -66,6 +62,8 @@ h3 {
   
   color:#1f6196;
 }
+
+/*Controls CSS for all buttons and some specific elements*/
 button {
   font-weight: bolder;
   list-style: none;
@@ -79,15 +77,19 @@ button {
 .back{
   display:inline-flex;
 }
+
+/*Input box behavior*/
 input {
   border-radius: 15px;
   padding: 5px 10px;
   font-weight: lighter;
   font-size: large;
 }
+/*Form flexing*/
 form {
   display:inline-flex
 }
+
 /*media query for smaller desktop screens and smaller*/
 @media screen and (max-width:980px) {
   .question-container {
