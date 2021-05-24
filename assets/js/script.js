@@ -25,8 +25,15 @@ var maxAnswers = 4
 var timeLeft = 99;
 var timeDecrement = 9;
 var formEl = document.querySelector("#highscore-form");
+var scoreInfoEl = document.createElement("h3");
+var nameInfoEl = document.createElement("h3");
 var highScoresArr = [{ name: "AJ", score: 0 }]
 highScoresArr = loadScore(highScoresArr)
+if(highScoresArr == false)
+{
+    highScoresArr = [{ name: "AJ", score: 0 }]
+}
+console.log(highScoresArr)
 var count = 0
 var qPoint = 0;
 
@@ -348,8 +355,8 @@ var createHighScoreEl = function (highScoresArr) {
     for (var i = 0; i < highScoresArr.length; i++) {
         var scoreInfoEl = document.createElement("h3");
         var nameInfoEl = document.createElement("h3");
-        scoreInfoEl.className = "highscore-score";
-        nameInfoEl.className = "highscore-name";
+        scoreInfoEl.id = "highscore-score";
+        nameInfoEl.id = "highscore-name";
         nameInfoEl.innerHTML = "Name: " + highScoresArr[i].name + " "
         scoreInfoEl.innerHTML =  " Score: " + highScoresArr[i].score + " "
         scoreInfoEl.style.borderStyle = "dashed";
@@ -361,6 +368,16 @@ var createHighScoreEl = function (highScoresArr) {
     }
     saveScore(highScoresArr)
 };
+var removeHighScoreEl = function()
+{
+    for(var i=0;i<highScoresArr.length;i++){
+    var listItemEl = document.getElementById('scores-list')
+    var nameInfoEl = document.getElementById('highscore-name')
+    var scoreInfoEl = document.getElementById('highscore-score')
+    listItemEl.removeChild(nameInfoEl)
+    listItemEl.removeChild(scoreInfoEl)
+    }   
+}
 //function that calls next question, passes global i, qOrder and initial questions. Q order determined by function generatequestions
 function nextQuestion() {
     console.log(questions())
@@ -387,12 +404,12 @@ function startQuiz() {
 }
 //loads high score page
 function viewHighScores() {
+    createHighScoreEl(highScoresArr)
     displayBack()
     displayDynamicList()
     removeViewHighScore()
     removeInitialPrompt()
     displayHighScore()
-    createHighScoreEl(highScoresArr)
 }
 //loads display score page
 function displayScore() {
@@ -414,6 +431,7 @@ function restart() {
     removeDynamicList()
     displayViewHighScore()
     displayInitialPrompt()
+    removeHighScoreEl()
 }
 
 //initial page load

@@ -76,8 +76,8 @@ button {
   background:lightblue;
   font-weight: lighter;
 }
-button #back{
-  display:unset;
+.back{
+  display:inline-flex;
 }
 input {
   border-radius: 15px;
