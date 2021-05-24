@@ -1,8 +1,8 @@
 # Quiz Generator
 
-[![Image of Password Generator
+[![Image of Quiz Generator
 ](assets/images/Quiz-GeneratorSS.PNG
-"PasswordGenerator Homepage")
+"QuizGenerator Homepage")
 ](https://brobro10000.github.io/quiz-generator)
 
 ## **The Quiz Generator**
@@ -34,12 +34,12 @@ The quiz generator is a fun way to check simple coding concepts in a form of a q
 ![QuizStart2](assets/images/randomQandASS.PNG)
 
 
-- When the user enters a correct password, the background changes to green and the question will change within 2 seconds. The timer will be paused while they wait for the question to change. Their score increments by 1 point.
+- When the user selects a correct answer, the background changes to green and the question will change within 2 seconds. The timer will be paused while they wait for the question to change. Their score increments by 1 point.
 
 ![correctAnswer](assets/images/onCorrectSS.PNG)
 
 
-- When the user enters an incorrect password, the background changes to red and the question will change within 2 seconds. The timer will be paused while they wait for the question to change. The time will decrement by 9 seconds point.
+- When the user selects an incorrect answer, the background changes to red and the question will change within 2 seconds. The timer will be paused while they wait for the question to change. The time will decrement by 9 seconds point.
 
 ![incorrectAnswer](assets/images/onIncorrectSS.PNG)
 
