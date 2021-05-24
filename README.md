@@ -78,7 +78,7 @@ The quiz generator is a fun way to check simple coding concepts in a form of a q
 
 
 # Why it Matters?
-Creating a quiz generator that is usable for future projects is extremely important in understanding how to create portable software. Given the structure of how the code is written, it can easily implement CSV/TSV uploads to create a true quiz generator. Allowing users the freedom to make their own question bank and answers in Excel, gives the program much more reusability for the user. The random quesiton/answer dynamic makes the program all the more challenging requiring memorization of the concepts as opposed to question order and answer positions. Other implementable ideas are a sorted score list, and user made quizzes saved on local storage for the user to revisit and attempt without re-uploading the CSV/TSV.
+Creating a quiz generator that is usable for future projects is extremely important in understanding how to create portable software. Given the structure of how the code is written, it can easily implement CSV/TSV uploads to create a true quiz generator. Allowing users the freedom to make their own question bank and answers in Excel, gives the program much more reusability for the user. The random question/answer dynamic makes the program all the more challenging requiring memorization of the concepts as opposed to question order and answer positions. Other implementable ideas are a sorted score list, and user made quizzes saved on local storage for the user to revisit and attempt without re-uploading the CSV/TSV.
 
 Visit my quiz generator [by clicking here](https://brobro10000.github.io/quiz-generator) or follow the direct link at [https://brobro10000.github.io/quiz-generator](https://brobro10000.github.io/quiz-generator). 
 
