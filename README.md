@@ -61,7 +61,7 @@ The quiz generator is a fun way to check simple coding concepts in a form of a q
 
 - We finally appear on the View Scores!
 
-![allFalseResponse](assets/images/highScores2SS.PNG)
+![allFalseResponse](assets/images/highscores2SS.PNG)
 
 
 - To understand the random generation logic, we first make an array of random question indices from our question object. Then as the the quiz progresses, an array of random answer indices are formulated. Checking the index of the random answer against the index of the index of the question order, we can match the value to return the correct index value within our random answer array. If the index of the correct answer did not exist, we would return a -1.
