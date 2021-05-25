@@ -339,7 +339,7 @@ function highScoreFormHandler(event) {
     if (highScoreNameInput === "") {
         alert("No initials entered");
         return false;
-    } {
+    } else {
         removeFinalScore()
         displayDynamicList()
         displayHighScore()
@@ -438,6 +438,7 @@ function displayScore() {
 //functions back button
 function restart() {
     i = 0
+    score = 0;
     qPoint = 0
     timeLeft = 100
     loadScore(highScoresArr)
